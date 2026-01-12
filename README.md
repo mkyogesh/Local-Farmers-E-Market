@@ -52,19 +52,6 @@ Local-Farmers-E-Market/
 │   ├── static
 │   └── application.properties
 ├── screenshots
-│   ├── login.png
-│   ├── register.png
-│   ├── home-1.png
-│   ├── home-2.png
-│   ├── home-3.png
-│   ├── home-4.png
-│   ├── categories.png
-│   ├── categories-1.png
-│   ├── categories-2.png
-│   ├── categories-3.png
-│   ├── cart.png
-│   ├── cart-1.png
-│   └── order-page.png
 ├── pom.xml
 └── README.md
 </pre>

@@ -95,21 +95,28 @@ Local-Farmers-E-Market/
 
 ### 🏠 Home Page
 
-![Home](screenshots/home-1.png) 
-![Home](screenshots/home-2.png) 
+![Home](screenshots/home-1.png)
+
+![Home](screenshots/home-2.png)
+
 ![Home](screenshots/home-3.png) 
+
 ![Home](screenshots/home-4.png)
 
 ### 📂 Categories
 
 ![Categories](screenshots/categories.png) 
+
 ![Categories](screenshots/categories-1.png) 
+
 ![Categories](screenshots/categories-2.png) 
+
 ![Categories](screenshots/categories-3.png)
 
 ### 🛒 Cart Page
 
 ![Cart](screenshots/cart.png) 
+
 ![Cart](screenshots/cart-1.png)
 
 ### ✅ Order Completion Page

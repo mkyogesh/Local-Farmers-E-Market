@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Add Fresh Fruit Products</title>
+    <link rel="stylesheet" th:href="@{/css/categoriesform.css}">
+
+</head>
+<body class="imageForm">
+<div class="imageForm_container">
+    <h2 th:text="${fruitsProduct.id == null
+    ? '🧺 Add Fresh Fruit Products'
+    : '✏️ Edit Fresh Fruit Products'}">
+    </h2>
+
+    <form class="imageForm_form" th:action="@{/fruits/save}" th:object="${fruitsProduct}" method="post"
+          enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
+
+        <input class="imageForm_input" type="text" th:field="*{fruits_name}" placeholder="Product Name" required/><br>
+
+        <input class="imageForm_input" type="number" step="0.01" th:field="*{fruits_price}" placeholder="Product Price"
+               required/><br>
+
+        <input class="imageForm_input" type="text" th:field="*{fruits_quantity}" placeholder="Product Quantity (e.g. 1 Kg, 500g)" required/><br>
+
+        <textarea class="imageForm_textarea" th:field="*{fruits_description}"
+                  placeholder="Product Description"></textarea><br>
+
+        <input class="imageForm_input" type="file" name="image" width="100"/><br>
+
+        <button class="imageForm_submit" type="submit">Save</button>
+    </form>
+</div>
+
+
+</body>
+</html>

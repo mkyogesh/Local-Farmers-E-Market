@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exotic Fruits and Vegetables</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/categories.css}">
+    <script th:src="@{/js/categories.js}" defer></script>
+</head>
+<body class="productlist">
+<header class="productlist_navbar">
+    <a class="productlist_home-btn" th:href="@{/home}">🏠Home</a>
+    <div class="logo"><img class="sk" th:src="@{'/smart-basket/'+ 'green-cart-logo.png'}" alt="logo"></div>
+    <input type="text" placeholder="Search Exotic Fruits & Vegetable Products..." class="productlist_search-box">
+    <a class="productlist_cart" th:href="@{/cart}">&#128722;View Cart</a>
+</header>
+
+<main>
+
+    <h1 class="productlist_section-title">Exotic Fruits And Veggies</h1>
+    <a class="productlist_add" th:if="${userRole=='ROLE_ADMIN'}" th:href="@{/exotic/add}">Add Exotic Fruits and Vegetables Products</a>
+    <div class="productlist_product-grid">
+        <div class="productlist_product-card" th:each="exoticProduct : ${exoticProducts}">
+            <div class="productlist_list">
+                <img th:src="@{'/exotic-images/' + ${exoticProduct.exotic_image}}" width="100" alt="exotic">
+                <h3 class="product_brand" th:text="${exoticProduct.exotic_name}"></h3>
+                <p class="productlist_desc" th:text="${exoticProduct.exotic_description}"></p>
+                <p class="productlist_price" th:text="|₹${exoticProduct.exotic_price}|"></p>
+
+                <div class="productlist_btn-group">
+                    <a class="productlist_add-cart" th:href="@{'/add-to-cart-exotic/' + ${exoticProduct.id}}">Add to Cart</a>
+                    <a class="productlist_edit-btn" th:if="${userRole=='ROLE_ADMIN'}"
+                       th:href="@{'/exotic/edit/' + ${exoticProduct.id}}">Edit</a>
+                    <a class="productlist_delete-btn" th:if="${userRole=='ROLE_ADMIN'}"
+                       th:href="@{'/exotic/delete/' + ${exoticProduct.id}}"  onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

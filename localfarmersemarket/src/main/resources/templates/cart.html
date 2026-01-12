@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Green Cart</title>
+    <link rel="stylesheet" th:href="@{/css/cart.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body class="cart-page">
+
+<header class="cart-header">
+    <h1>🛒 My Green Cart</h1>
+</header>
+
+<main class="cart-wrapper">
+
+
+    <div class="cart-list" th:if="${cartItems.size() > 0}">
+        <div class="cart-card" th:each="item : ${cartItems}">
+
+
+            <div class="cart-img" th:switch="${item.cartCategory}">
+                <img th:case="'smart_basket'" th:src="@{'/smart-basket/' + ${item.cart_image}}" />
+                <img th:case="'atta'" th:src="@{'/atta-images/' + ${item.cart_image}}" />
+                <img th:case="'dals'" th:src="@{'/dals-images/' + ${item.cart_image}}" />
+                <img th:case="'exotic'" th:src="@{'/exotic-images/' + ${item.cart_image}}" />
+                <img th:case="'fruits'" th:src="@{'/fruits-images/' + ${item.cart_image}}" />
+                <img th:case="'veggies'" th:src="@{'/veggies-images/' + ${item.cart_image}}" />
+                <img th:case="*" th:src="@{'/rice-images/' + ${item.cart_image}}" />
+            </div>
+
+            <div class="cart-info">
+                <h3 th:text="${item.cart_name}">Product</h3>
+                <p class="category" th:text="${item.cartCategory}"></p>
+
+                <div class="qty-price-row">
+                    <div class="qty-control">
+                        <button class="qty-btn minus"
+                                th:data-id="${item.id}"
+                                th:data-category="${item.cartCategory}">−</button>
+
+                        <span class="qty" th:text="${item.cart_quantity}">1</span>
+
+                        <button class="qty-btn plus"
+                                th:data-id="${item.id}"
+                                th:data-category="${item.cartCategory}">+</button>
+                    </div>
+
+                    <div class="item-price">
+                        ₹ <span th:text="${item.cart_amount}">0</span>
+                    </div>
+                </div>
+
+                <a class="remove-item" th:href="@{'/cart/delete/' + ${item.id}}">Remove</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="empty-cart" th:if="${cartItems.size() == 0}">
+        <img src="/smart-basket/emptycart.png">
+        <h2>Your green cart is empty </h2>
+        <p>Add fresh products to your cart to place an order.</p>
+        <a class="back-home" th:href="@{/home}">Continue Shopping</a>
+    </div>
+
+
+    <aside class="cart-summary" th:if="${cartItems.size() > 0}">
+        <h2>Price Details</h2>
+
+        <div class="summary-row">
+            <span>Total Amount</span>
+            <span>₹ <strong id="cartTotal"
+                            th:text="${totalAmount != null ? totalAmount : 0}">0</strong></span>
+        </div>
+
+        <a class="checkout-btn" href="#" id="placeOrderBtn">Place Order</a>
+    </aside>
+
+</main>
+
+<script th:inline="javascript">
+    const cartSize = [[${cartItems.size()}]];
+
+    $('#placeOrderBtn').click(function (e) {
+        e.preventDefault();
+
+        if (cartSize === 0) {
+            alert("Your green cart is empty. Add products before purchasing!");
+        } else {
+            window.location.href = "/cart/confirmation";
+        }
+    });
+
+    function updateQty(id, category, type) {
+        $.get(`/ajax-${type}-quantity_${category}/${id}`, function (res) {
+            $(`[data-id='${id}']`).siblings('.qty').text(res.quantity);
+            $(`[data-id='${id}']`).closest('.cart-info')
+                .find('.item-price span').text(res.amount);
+            $('#cartTotal').text(res.total);
+        });
+    }
+
+    $('.plus').click(function () {
+        updateQty($(this).data('id'), $(this).data('category'), 'increase');
+    });
+
+    $('.minus').click(function () {
+        updateQty($(this).data('id'), $(this).data('category'), 'decrease');
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body.imageForm {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e7efdc, #d6e3c2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+}
+
+
+.imageForm_container {
+    width: 460px;
+    max-width: 100%;
+    padding: 36px 40px;
+    border-radius: 30px;
+    background: linear-gradient(180deg, #f8fbf3, #eef5e5);
+    box-shadow: 0 32px 65px rgba(0,0,0,0.28);
+    animation: formEnter 0.7s ease;
+}
+
+@keyframes formEnter {
+    from {
+        opacity: 0;
+        transform: translateY(26px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.imageForm_container h2 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 22px;
+    color: #4f6b3c;
+}
+
+
+.imageForm_form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.imageForm_input,
+.imageForm_textarea {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border-radius: 26px;
+
+
+    border: 1.8px solid #8fa182;
+
+    background: rgba(255,255,255,0.92);
+    font-size: 14px;
+    font-weight: 600;
+    color: #2f2f2f;
+    outline: none;
+    transition: box-shadow 0.25s ease, background 0.25s ease;
+}
+
+
+.imageForm_textarea {
+    border-radius: 18px;
+    min-height: 88px;
+    resize: none;
+}
+
+
+.imageForm_input::placeholder,
+.imageForm_textarea::placeholder {
+    color: #6b7f5a;   /* earthy olive-grey */
+    font-weight: 500;
+}
+
+
+.imageForm_input:hover,
+.imageForm_textarea:hover {
+    box-shadow: 0 6px 14px rgba(90, 120, 70, 0.18);
+}
+
+
+.imageForm_input:focus,
+.imageForm_textarea:focus {
+    border-color: #7e9470;
+    box-shadow:
+        0 0 0 2px rgba(126,148,112,0.25),
+        0 8px 18px rgba(90,120,70,0.22);
+    background: #ffffff;
+}
+
+
+.imageForm_input[type="file"] {
+    padding: 10px 14px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.88);
+}
+
+
+
+.imageForm_submit {
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(135deg, #4f6b3c, #324a26);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 15px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.imageForm_submit::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.35),
+        transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.imageForm_submit:hover::after {
+    transform: translateX(100%);
+}
+
+.imageForm_submit:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.35);
+}
+
+
+@media (max-width: 600px) {
+    .imageForm_container {
+        padding: 30px 26px;
+    }
+}

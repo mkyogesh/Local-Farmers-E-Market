@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Add Dals and Pulses Products</title>
+    <link rel="stylesheet" th:href="@{/css/categoriesform.css}">
+
+</head>
+<body class="imageForm">
+<div class="imageForm_container">
+    <h2 th:text="${dalsProduct.id == null
+    ? '🧺 Add Dals and Pulses Products'
+    : '✏️ Edit Dals and Pulses Products'}">
+    </h2>
+
+    <form class="imageForm_form" th:action="@{/dals/save}" th:object="${dalsProduct}" method="post"
+          enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
+
+        <input class="imageForm_input" type="text" th:field="*{dals_name}" placeholder="Product Name" required/><br>
+
+        <input class="imageForm_input" type="number" step="0.01" th:field="*{dals_price}" placeholder="Product Price"
+               required/><br>
+
+        <input class="imageForm_input" type="text" th:field="*{dals_quantity}" placeholder="Product Quantity (e.g. 1 Kg, 500g)" required/><br>
+
+        <textarea class="imageForm_textarea" th:field="*{dals_description}"
+                  placeholder="Product Description"></textarea><br>
+
+        <input class="imageForm_input" type="file" name="image" width="100" /><br>
+
+        <button class="imageForm_submit" type="submit">Save</button>
+
+    </form>
+</div>
+
+
+</body>
+</html>

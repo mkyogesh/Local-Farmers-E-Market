@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Farmers E-Market</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body class="home">
+<header>
+    <div class="logo"><img class="sk" th:src="@{'/smart-basket/'+ 'green-cart-logo.png'}" alt="logo"></div>
+    <nav><a th:href="@{/home}">Home</a> <a th:href="@{/cart}">Shop</a> <a th:href="@{/account}">Account</a> <a
+            th:href="@{/blog}">Blog</a></nav>
+    <div class="icons"><a th:href="@{/wishlist}"><i class="fa-regular fa-heart"></i></a> <a th:href="@{/cart}"><i
+            class="fa-solid fa-basket-shopping"></i></a> <a th:href="@{/login}"><i class="fa-regular fa-user"></i></a>
+    </div>
+</header>
+<div class="search-bar">
+    <form th:action="@{/search}" method="get"><input type="text" name="query"
+                                                     placeholder="Search fresh products here...">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+</div>
+<section class="hero">
+    <div class="hero-text"><h2>Fresh from farm to your doorstep 🌾</h2>
+        <p>Buy directly from local farmers — organic & chemical-free products.</p></div>
+    <div class="hero-image"><img class="sk" th:src="@{'/smart-basket/'+ banner.jpg}" alt="Fresh Products"></div>
+</section>
+<section class="categories"><h2>SHOP BY CATEGORY</h2>
+    <div class="category-grid">
+
+        <a th:href="@{/shop/exotic}"> <img th:src="@{'/smart-basket/' + exotic.jpg}"
+                                            alt="Exotic Fruits And Veggies"><span>Exotic Fruits And Veggies</span></a>
+        <a th:href="@{/shop/fruits}"> <img th:src="@{'/smart-basket/' + fruits.jpg}"
+                                            alt="Fresh Fruits"><span>Fresh Fruits</span></a>
+        <a th:href="@{/shop/veggies}"> <img th:src="@{'/smart-basket/' + veggiess.jpg}"
+                                            alt="Fresh Vegetables"><span>Fresh Vegetables</span> </a>
+        <a th:href="@{/shop/atta}"> <img th:src="@{'/smart-basket/' + 'atta.jpg'}"
+                                            alt="AttaFloursAndSooji"><span>Atta Flours And Sooji</span></a>
+        <a th:href="@{/shop/dals}"> <img th:src="@{'/smart-basket/' + 'dals_and_pulses.jpg'}"
+                                            alt="Dals And Pulses"><span>Dals & Pulses</span> </a>
+        <a th:href="@{/shop/rice}"> <img th:src="@{'/smart-basket/' + rice.jpg}"
+                                            alt="Rice And RiceProducts"><span>Rice And RiceProducts</span> </a>
+    </div>
+</section>
+<section class="trending">
+    <h2>My Smart Basket</h2>
+
+    <div>
+        <a class="product_cart" th:if="${userRole=='ROLE_ADMIN'}"
+           th:href="@{/smartBasket/add}">
+            🧺 Add Smart Basket Products
+        </a>
+    </div>
+
+    <div class="smart-wrapper">
+        <button class="scroll-btn left">
+            <i class="fa-solid fa-angle-left"></i>
+        </button>
+
+        <div class="smart-scroll" id="smartScroll">
+            <div class="product-item" th:each="smartBasket:${smartBasket}">
+                <img th:src="@{'/smart-basket/'+${smartBasket.smart_basket_image}}">
+
+                <h3 th:text="${smartBasket.smart_basket_name}"></h3>
+                <span th:text="${smartBasket.smart_basket_quantity}"></span>
+                <p th:text="${smartBasket.smart_basket_description}"></p>
+                <span th:text="|₹${smartBasket.smart_basket_price}|"></span>
+
+                <div class="product-actions">
+                    <a th:href="@{'/add-to-cart-smart_basket/'+${smartBasket.id}}">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </a>
+                    <a th:if="${userRole=='ROLE_ADMIN'}"
+                       th:href="@{'/home/delete/'+${smartBasket.id}}">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <button class="scroll-btn right">
+            <i class="fa-solid fa-angle-right"></i>
+        </button>
+    </div>
+</section>
+
+<script>
+    const scrollContainer = document.getElementById("smartScroll");
+    const leftBtn = document.querySelector(".scroll-btn.left");
+    const rightBtn = document.querySelector(".scroll-btn.right");
+
+    function scrollBasket(dir) {
+        const amount = scrollContainer.clientWidth * 0.8;
+        scrollContainer.scrollBy({ left: dir * amount, behavior: "smooth" });
+    }
+
+    leftBtn.onclick = () => scrollBasket(-1);
+    rightBtn.onclick = () => scrollBasket(1);
+
+    function updateArrows() {
+        leftBtn.classList.toggle("disabled", scrollContainer.scrollLeft <= 5);
+        rightBtn.classList.toggle(
+            "disabled",
+            scrollContainer.scrollLeft + scrollContainer.clientWidth >=
+            scrollContainer.scrollWidth - 5
+        );
+    }
+
+    scrollContainer.addEventListener("scroll", updateArrows);
+    window.addEventListener("load", updateArrows);
+</script>
+
+<footer>
+    <div class="footer-top"><h2>LOCAL FARMERS E-MARKET</h2>
+        <div class="social-icons"><a href="#"><i class="fa-brands fa-instagram"></i></a> <a href="#"><i
+                class="fa-brands fa-facebook"></i></a> <a href="#"><i class="fa-brands fa-x-twitter"></i></a></div>
+        <div class="footer-links">
+            <div><h4>ABOUT US</h4> <a th:href="@{/cart}">Shop</a> <a href="#">Facebook</a> <a
+                    th:href="@{/login}">Login</a></div>
+            <div><h4>CUSTOMER</h4> <a href="#">Shipping</a> <a href="#">Returns</a> <a href="#">Privacy & Policy</a>
+            </div>
+            <div><h4>ACCOUNT</h4> <a th:href="@{/login}">Sign In</a> <a th:href="@{/cart}">Cart</a> <a
+                    th:href="@{/account}">My Account</a></div>
+            <div><h4>HELP</h4> <a href="#">FAQ</a> <a href="#">My Orders</a> <a href="#">Delivery Terms</a></div>
+        </div>
+    </div>
+</footer>
+<div class="container19"><p>© 2025 Local Farmers E-Market. All rights reserved by Yogesh K.</p></div>

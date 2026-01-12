@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmed | Local Farmers E-Market</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/cart.css}">
+</head>
+
+<body class="order-page">
+
+<div class="order-wrapper">
+
+    <div class="order-card">
+
+        <div class="order-icon">
+            ✔
+        </div>
+
+        <h1>Order Placed Successfully</h1>
+
+        <p class="order-msg">
+            Thank you for shopping with <strong>Local Farmers E-Market</strong>.
+            <br>Your fresh products will be delivered soon 🥬🌾
+        </p>
+
+        <div class="order-actions">
+            <a th:href="@{/home}" class="order-btn secondary">
+                Continue Shopping
+            </a>
+
+            <a th:href="@{/cart}" class="order-btn primary">
+                View My Cart
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

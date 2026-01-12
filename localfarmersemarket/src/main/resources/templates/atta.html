@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atta Products</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/categories.css}">
+    <script th:src="@{/js/categories.js}" defer></script>
+</head>
+<body class="productlist">
+<header class="productlist_navbar">
+    <a class="productlist_home-btn" th:href="@{/home}">🏠Home</a>
+    <div class="logo"><img class="sk" th:src="@{'/smart-basket/'+ 'green-cart-logo.png'}" alt="logo"></div>
+    <input type="text" placeholder="Search Atta Products..." class="productlist_search-box">
+    <a class="productlist_cart" th:href="@{/cart}">&#128722;View Cart</a>
+</header>
+
+<main>
+
+    <h1 class="productlist_section-title">Atta Flours And Sooji</h1>
+    <a class="productlist_add" th:if="${userRole=='ROLE_ADMIN'}" th:href="@{/atta/add}">Add Atta Products</a>
+    <div class="productlist_product-grid">
+        <div class="productlist_product-card" th:each="attaProduct : ${attaProducts}">
+            <div class="productlist_list">
+                <img th:src="@{'/atta-images/' + ${attaProduct.atta_image}}" width="100" alt="Atta">
+                <h3 class="product_brand" th:text="${attaProduct.atta_name}"></h3>
+                <p class="productlist_desc" th:text="${attaProduct.atta_description}"></p>
+                <p class="productlist_qty" th:text="${attaProduct.atta_quantity}"></p>
+                <p class="productlist_price" th:text="|₹${attaProduct.atta_price}|"></p>
+
+                <div class="productlist_btn-group">
+                    <a class="productlist_add-cart" th:href="@{'/add-to-cart-atta/' + ${attaProduct.id}}">Add to Cart</a>
+                    <a class="productlist_edit-btn" th:if="${userRole=='ROLE_ADMIN'}"
+                       th:href="@{'/atta/edit/' + ${attaProduct.id}}">Edit</a>
+                    <a class="productlist_delete-btn" th:if="${userRole=='ROLE_ADMIN'}"
+                       th:href="@{'/atta/delete/' + ${attaProduct.id}}" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
